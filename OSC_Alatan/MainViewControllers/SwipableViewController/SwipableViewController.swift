@@ -43,7 +43,8 @@ class SwipableViewController: UIViewController {
     
     func initWithTitle(title: String, subTitles: [String], controllers: [AnyObject], underTabbar: Bool) -> AnyObject {
         
-        
+        // http://stackoverflow.com/questions/18798792/explaining-difference-between-automaticallyadjustsscrollviewinsets-extendedlayo
+        self.edgesForExtendedLayout = UIRectEdge.None
         
         // 给自身(控制器) 设置 标题
         if !title.isEmpty {self.title = title}
@@ -53,13 +54,22 @@ class SwipableViewController: UIViewController {
         titleBar = TitleBarView().initWithFrame(CGRectMake(0, 0, CGRectGetWidth(self.view.frame), titleBarHeight), titles: subTitles)
         self.view.addSubview(titleBar!)
         
-        
         // 初始化 HorizonalTableViewController 控制器 对象
         viewPaper = HorizonalTableViewController().initWithViewControllers(controllers)
+        let height = CGRectGetHeight(UIScreen.mainScreen().bounds) - titleBarHeight
+        viewPaper?.view.frame = CGRectMake(0, titleBarHeight, CGRectGetWidth(UIScreen.mainScreen().bounds), height)
+        self.view.addSubview((viewPaper?.view)!)
         
         
+        titleBar?.titleButtonClicked = { (index: Int) in
+            print("\(index)")
+            self.viewPaper?.scrollToViewAtIndex(index)
+        }
         
         return self
     }
-
+    
+    
 }
+
+

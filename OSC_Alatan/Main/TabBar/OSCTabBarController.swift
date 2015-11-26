@@ -21,13 +21,16 @@ class OSCTabBarController: UITabBarController {
         /*暂时简单初始化综合模块里几个子控制器*/
         // 资讯
         newsViweCtl = NewsViewController()
+        newsViweCtl!.view.backgroundColor = UIColor.orangeColor()
         // 热门
         hotNewsViewCtl = NewsViewController()
+        hotNewsViewCtl?.view.backgroundColor = UIColor.grayColor()
         // 博客
         blogViewCtl = BlogsViewController()
+        blogViewCtl?.view.backgroundColor = UIColor.redColor()
         // 推荐
         hotBlogViewCtl = BlogsViewController()
-        
+        hotBlogViewCtl?.view.backgroundColor = UIColor.blueColor()
         
         // 综合
         let newsSVC: SwipableViewController = SwipableViewController().initWithTitle("综合", subTitles: ["资讯", "热点", "博客", "推荐"], controllers:  [newsViweCtl!, hotNewsViewCtl!, blogViewCtl!, hotBlogViewCtl!]) as! SwipableViewController
@@ -57,7 +60,9 @@ class OSCTabBarController: UITabBarController {
         for (index, obj) in (self.tabBar.items?.enumerate())! {
             let item: UITabBarItem = obj
             item.title = titles[index]
-            item.image = UIImage(named: images[index])
+            item.image = UIImage(named: images[index])?.imageWithRenderingMode(UIImageRenderingMode.AlwaysOriginal)
+            
+//            item.image? = 
             item.selectedImage = UIImage(named: "\(images[index])-selected")
         }
         

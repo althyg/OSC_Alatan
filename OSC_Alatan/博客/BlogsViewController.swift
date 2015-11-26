@@ -19,8 +19,14 @@ class BlogsViewController: OSCObjsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.tableView = UITableView()
     }
+    
+//    override func loadView() {
+//        self.view = UIView(frame: CGRectMake(0, 0, CGRectGetWidth(UIScreen.mainScreen().bounds), CGRectGetHeight(UIScreen.mainScreen().bounds)))
+//    }
+    
+
     
     // 初始化方法
     func initWithNewsListType(type type: BlogsType) -> AnyObject

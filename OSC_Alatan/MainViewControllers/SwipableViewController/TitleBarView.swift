@@ -10,7 +10,10 @@ import UIKit
 
 class TitleBarView: UIScrollView {
     
+    var titleButtonClicked: ((index: Int) -> (Void))?
+    
     init() {
+        
         super.init(frame: CGRectZero)
     }
 
@@ -37,9 +40,16 @@ class TitleBarView: UIScrollView {
             button.frame = CGRectMake(buttonWidth * CGFloat(idx), 0, buttonWidth, buttonHeight)
             button.tag = idx
 
+            button.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
             self.addSubview(button)
         }
 
+        contentSize = CGSizeMake(CGRectGetWidth(frame), frame.size.height)
         return self
+        
+    }
+    
+    func buttonClicked(btn: UIButton) {
+        titleButtonClicked!(index: btn.tag)
     }
 }
